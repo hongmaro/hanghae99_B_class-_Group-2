@@ -5,7 +5,7 @@
 | 이름 | 담당 | 깃허브ID |
 |---|:---:|---:|
 | `홍마로` | 시작, 메인 페이지 | [@hongmaro](https://github.com/hongmaro) | 
-| `김장원` | 회원가입, 로그인 페이지 | [@]() | 
+| `김장원` | 회원가입, 로그인 페이지 | [@chunngamm](https://github.com/chunngamm) | 
 | `정건희` | 음악 추천 작성 페이지 | [@jeonggeonhee](https://github.com/jeonggeonhee)|
 
 ### 기획
