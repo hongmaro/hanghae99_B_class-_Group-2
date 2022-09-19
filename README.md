@@ -6,7 +6,7 @@
 |---|:---:|---:|
 | `홍마로` | 시작, 메인 페이지 | [@hongmaro](https://github.com/hongmaro) | 
 | `김장원` | 회원가입, 로그인 페이지 | [@]() | 
-| `정건희` | 음악 추천 작성 페이지 | [@]()|
+| `정건희` | 음악 추천 작성 페이지 | [@jeonggeonhee](https://github.com/jeonggeonhee)|
 
 ### 기획
 ![image](KakaoTalk_20220919_151049194.png)
