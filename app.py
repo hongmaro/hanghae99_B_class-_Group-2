@@ -2,10 +2,14 @@ from pymongo import MongoClient
 import jwt
 import datetime
 import hashlib
+<<<<<<< HEAD
 
 
 import certifi
 
+=======
+import certifi
+>>>>>>> d7142e6f36525a067f45847b4533b1595f4e4b8d
 from flask import Flask, render_template, jsonify, request, redirect, url_for
 from werkzeug.utils import secure_filename
 from datetime import datetime, timedelta
@@ -17,6 +21,7 @@ app.config['UPLOAD_FOLDER'] = "./static/profile_pics"
 
 SECRET_KEY = 'SPARTA'
 
+<<<<<<< HEAD
 
 client = MongoClient('mongodb+srv://test:sparta@cluster0.fwrets3.mongodb.net/cluster0?retryWrites=true&w=majority')
 db = client.dbsparta
@@ -31,6 +36,15 @@ db = client.dbsparta_week1
 def rec():
     return render_template('rec.html')
 
+=======
+client = MongoClient('mongodb+srv://test:sparta@cluster0.fwrets3.mongodb.net/cluster0?retryWrites=true&w=majority', tlsCAFile=certifi.where())
+db = client.dbsparta_week1
+
+
+@app.route('/recommendation')
+def recommendation():
+    return render_template('recommendation.html')
+>>>>>>> d7142e6f36525a067f45847b4533b1595f4e4b8d
 
 @app.route('/')
 def home():
@@ -44,6 +58,8 @@ def home():
         return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
     except jwt.exceptions.DecodeError:
         return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
+
+    return render_template('recommendation.html')
 
 
     return render_template('rec.html')
@@ -115,6 +131,40 @@ def check_dup():
     username_receive = request.form['username_give']
     exists = bool(db.users.find_one({"username": username_receive}))
     return jsonify({'result': 'success', 'exists': exists})
+
+@app.route('/contents', methods=['GET'])
+def show_music():
+    music = list(db.peopleofmusic.find({}, {'_id': False}))
+    return jsonify({'all_music': music})
+
+@app.route('/contents', methods=['POST'])
+def save_music():
+    artist_receive = request.form['artist_give']
+    song_receive = request.form['song_give']
+    rec_receive = request.form['rec_give']
+
+    file = request.files["file_give"]
+
+    extension = file.filename.split('.')[-1]
+
+    today = datetime.now()
+    mytime = today.strftime('%Y-%m-%d-%H-%M-%S')
+
+    filename = f'file-{mytime}'
+
+    save_to = f'static/{filename}.{extension}'
+    file.save(save_to)
+
+    doc = {
+        'artist': artist_receive,
+        'song': song_receive,
+        'rec': rec_receive,
+        'file': f'{filename}.{extension}'
+    }
+
+    db.contents.insert_one(doc)
+
+    return jsonify({'msg': '추천 완료!'})
 
 
 
