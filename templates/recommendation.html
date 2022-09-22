@@ -32,6 +32,7 @@
 
     <script>
 
+        <!-- 음악 추천 작성 페이지에는 필요 없어 주석 처리 함 -->
         $(document).ready(function () {
             bsCustomFileInput.init()
             listing()
@@ -40,7 +41,7 @@
         function listing() {
             $.ajax({
                 type: "GET",
-                url: "/peopleofmusic",
+                url: "/contents",
                 data: {},
                 success: function (response) {
                     let music = response['all_music']
@@ -53,8 +54,8 @@
                         let temp_html = `<div class="card">
                                             <img src="../static/${file}" class="card-img-top">
                                             <div class="card-body">
-                                                <h6 class="card-title">${artist}</h6>
                                                 <h5 class="card-title">${song}</h5>
+                                                <h6 class="card-title">${artist}</h6>
                                                 <p class="card-text">${rec}</p>
                                             </div>
                                         </div>`
@@ -79,7 +80,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "/peopleofmusic",
+                url: "/contents",
                 data: form_data,
                 cache: false,
                 contentType: false,
@@ -91,6 +92,14 @@
             });
         }
 
+        var load = function (event) {
+            var preview = document.getElementById('preview');
+            preview.src = URL.createObjectURL(event.target.files[0]);
+            preview.onload = function () {
+                URL.revokeObjectURL(preview.src) // free memory
+            }
+        }
+
     </script>
 
 </head>
@@ -100,12 +109,15 @@
 <div class="wrap">
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
-            <div class="posting-box">
+            <div class="image-box">
+                <img class="preview" id="preview">
                 <div class="custom-file">
-<!--                    웹개발 플러스에서 사용한 업로드 버튼에 accept 속성을 적용, 이미지 파일만 받을 수 있게 함.-->
-                    <input type="file" class="custom-file-input" id="file" accept="image/*">
-                    <label class="custom-file-label" for="file">대표 이미지 등록</label>
+                    <!-- 웹개발 플러스에서 사용한 업로드 버튼에 accept 속성을 적용, 이미지 파일만 받을 수 있게 함.-->
+                    <input type="file" class="custom-file-input" id="file" accept="image/*" onchange="load(event)">
+                    <label class="custom-file-label" for="file"></label>
                 </div>
+            </div>
+            <div class="posting-box">
                 <div class="form-group">
                     <input type="text" class="form-control" id="artist" placeholder="아티스트">
                 </div>
@@ -113,7 +125,7 @@
                     <input type="text" class="form-control" id="song" placeholder="곡 / 앨범">
                 </div>
                 <div class="mb-3">
-                    <textarea class="form-control" id="rec" rows="1" placeholder="한마디"></textarea>
+                    <input class="form-control" id="rec" rows="1" placeholder="한마디">
                 </div>
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                     <button onclick="posting()" class="btn btn-primary" type="button">등록</button>
@@ -121,7 +133,8 @@
             </div>
         </div>
     </div>
-    <div class="card-columns" id="cards-box"></div>
+    <!-- 음악 추천 작성 페이지에 첨부 할 필요 없어 주석 처리 함 -->
+    <!-- <div class="card-columns" id="cards-box"></div> -->
 </div>
 
 </body>
