@@ -9,10 +9,5 @@
 | `정건희` | 음악 추천 작성 페이지 | [@jeonggeonhee](https://github.com/jeonggeonhee)|
 
 ### 기획
-![image](KakaoTalk_20220919_151049194.png)
-![image](KakaoTalk_20220919_151049194_01.png)
-![image](KakaoTalk_20220919_151049194_02.png)
-![image](KakaoTalk_20220919_151049194_03.png)
-![image](KakaoTalk_20220919_151049194_04.png)
 
 #### DB 업데이트 상태
