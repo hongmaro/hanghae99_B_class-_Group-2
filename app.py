@@ -18,6 +18,10 @@ client = MongoClient('mongodb+srv://test:sparta@cluster0.fwrets3.mongodb.net/clu
 db = client.dbsparta_week1
 
 
+@app.route('/recommendation')
+def recommendation():
+    return render_template('recommendation.html')
+
 @app.route('/')
 def home():
     token_receive = request.cookies.get('mytoken')
