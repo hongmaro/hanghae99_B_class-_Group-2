@@ -32,38 +32,9 @@
 
     <script>
 
-        <!-- 음악 추천 작성 페이지에는 필요 없어 주석 처리 함 -->
         $(document).ready(function () {
             bsCustomFileInput.init()
-            listing()
         })
-
-        function listing() {
-            $.ajax({
-                type: "GET",
-                url: "/contents",
-                data: {},
-                success: function (response) {
-                    let music = response['all_music']
-                    for (let i = 0; i < music.length; i++) {
-                        let artist = music[i]['artist']
-                        let song = music[i]['song']
-                        let rec = music[i]['rec']
-                        let file = music[i]['file']
-
-                        let temp_html = `<div class="card">
-                                            <img src="../static/${file}" class="card-img-top">
-                                            <div class="card-body">
-                                                <h5 class="card-title">${song}</h5>
-                                                <h6 class="card-title">${artist}</h6>
-                                                <p class="card-text">${rec}</p>
-                                            </div>
-                                        </div>`
-                        $('#cards-box').append(temp_html)
-                    }
-                }
-            })
-        }
 
         function posting() {
             let artist = $("#artist").val()
@@ -87,7 +58,7 @@
                 processData: false,
                 success: function (response) {
                     alert(response["msg"])
-                    window.location.reload()
+                    window.location.href = '/'
                 }
             });
         }
@@ -133,8 +104,6 @@
             </div>
         </div>
     </div>
-    <!-- 음악 추천 작성 페이지에 첨부 할 필요 없어 주석 처리 함 -->
-    <!-- <div class="card-columns" id="cards-box"></div> -->
 </div>
 
 </body>
