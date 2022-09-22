@@ -18,11 +18,15 @@ client = MongoClient('mongodb+srv://test:sparta@cluster0.fwrets3.mongodb.net/clu
 db = client.dbsparta_week1
 
 
-@app.route('/recommendation')
-def recommendation():
-    return render_template('recommendation.html')
+@app.route('/rec')
+def rec():
+    return render_template('rec.html')
 
-@app.route('/')
+@app.route('/main')
+def main():
+    return render_template('main.html')
+
+@app.route('/login')
 def home():
     token_receive = request.cookies.get('mytoken')
     try:
@@ -35,10 +39,10 @@ def home():
     except jwt.exceptions.DecodeError:
         return redirect(url_for("login", msg="로그인 정보가 존재하지 않습니다."))
 
-    return render_template('recommendation.html')
+    return render_template('rec.html')
 
 
-@app.route('/login')
+@app.route('/')
 def login():
     msg = request.args.get("msg")
     return render_template('login.html', msg=msg)
@@ -72,7 +76,7 @@ def sign_in():
          'id': username_receive,
          'exp': datetime.utcnow() + timedelta(seconds=60 * 60 * 24)  # 로그인 24시간 유지
         }
-        token = jwt.encode(payload, SECRET_KEY, algorithm='HS256').decode('utf-8')
+        token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
 
         return jsonify({'result': 'success', 'token': token})
     # 찾지 못하면
@@ -102,7 +106,7 @@ def check_dup():
 
 @app.route('/contents', methods=['GET'])
 def show_music():
-    music = list(db.peopleofmusic.find({}, {'_id': False}))
+    music = list(db.contents.find({}, {'_id': False}))
     return jsonify({'all_music': music})
 
 @app.route('/contents', methods=['POST'])
