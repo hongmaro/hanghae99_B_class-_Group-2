@@ -23,7 +23,7 @@ def home():
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
         #로그인성공하면 이 페이지로 넘어가기 (주소만 바꿔주세요)
-        return render_template('index.html')
+        return render_template('main.html')
 
     except jwt.ExpiredSignatureError:
         return redirect(url_for("login", msg="로그인 시간이 만료되었습니다."))
